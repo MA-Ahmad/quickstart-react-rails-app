@@ -21,7 +21,6 @@ import { useAuthDispatch } from '../../contexts/auth';
 import authenticationApi from '../../apis/authentication';
 import { resetAuthTokens } from '../../apis/axios';
 import { useUserState } from '../../contexts/user';
-import { withRouter } from 'react-router-dom';
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 
@@ -113,4 +112,4 @@ const NavBar = () => {
   );
 };
 
-export default withRouter(NavBar);
+export default NavBar;
