@@ -39,7 +39,7 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-const NavBar = () => {
+const Navbar = () => {
   const { user } = useUserState();
   const contact = user ? `${user.first_name} ${user.last_name}` : 'user';
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -112,4 +112,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Navbar;

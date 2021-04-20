@@ -1,13 +1,13 @@
 import React from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { Box } from '@chakra-ui/react'
-import NavBar from "../Common/NavBar";
+import Navbar from "../Common/Navbar";
 import MainSection from "./MainSection";
 
 const Home = () => {
   return (
     <>
-      <NavBar />
+      <Navbar />
       <Box>
         <Switch>
           <Route exact path="/home" component={MainSection} />
