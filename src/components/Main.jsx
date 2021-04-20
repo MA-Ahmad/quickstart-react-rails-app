@@ -11,6 +11,7 @@ import Home from "./Dashboard/index";
 import PrivateRoute from "./Common/PrivateRoute";
 import PasswordReset from "./Authentication/ResetPassword";
 import Login from "./Authentication/Login";
+import Signup from "./Authentication/Signup";
 // import Signup from "components/Authentication/Signup";
 import Hero from "./Home/Hero";
 
@@ -46,7 +47,7 @@ const Main = props => {
       {/* <ToastContainer /> */}
       <Switch>
         <Route exact path="/my/password/new" component={PasswordReset} />
-        {/* <Route exact path="/signup" component={Signup} /> */}
+        <Route exact path="/signup" component={Signup} />
         {!isLoggedIn && <Route exact path="/" component={Hero} />}
         <Route exact path="/login" component={Login} />
         <PrivateRoute

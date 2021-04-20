@@ -35,7 +35,7 @@ const InternalLink = ({ path, text }) => {
   );
 };
 
-const Login = ({ history }) => {
+const Signup = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -71,7 +71,7 @@ const Login = ({ history }) => {
     >
       <Stack spacing={5} mx={'auto'} maxW={'lg'} py={8} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Sign In</Heading>
+          <Heading fontSize={'4xl'}>Sign Up</Heading>
         </Stack>
         <Box
           rounded={'lg'}
@@ -90,8 +90,24 @@ const Login = ({ history }) => {
                   onChange={e => setEmail(e.target.value)}
                 />
               </FormControl>
+              <FormControl id="name">
+                <FormLabel>Name</FormLabel>
+                <Input
+                  type="text"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+              </FormControl>
+              <FormControl id="password">
+                <FormLabel>Confirm Password</FormLabel>
                 <Input
                   type="password"
                   value={password}
@@ -115,16 +131,15 @@ const Login = ({ history }) => {
                   }}
                   type="submit"
                 >
-                  Sign in
+                  Sign up
                 </Button>
               </Stack>
             </Stack>
           </form>
         </Box>
         <Box px={8}>
-          <HStack justifyContent="space-between">
-            <InternalLink text={'Signup'} path={'/signup'} />
-            <InternalLink text={'Forgot password?'} path={'/my/password/new'} />
+          <HStack justifyContent="center">
+            <InternalLink text={'Login'} path={'/signin'} />
           </HStack>
         </Box>
       </Stack>
@@ -132,8 +147,8 @@ const Login = ({ history }) => {
   );
 };
 
-Login.propTypes = {
+Signup.propTypes = {
   history: PropTypes.object,
 };
 
-export default Login;
+export default Signup;
