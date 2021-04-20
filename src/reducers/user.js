@@ -1,6 +1,7 @@
 const userReducer = (state, { type, payload }) => {
   switch (type) {
-    case "SET_USER": {
+    case 'SET_USER': {
+      localStorage.setItem('currentUser', JSON.stringify(payload.user));
       return {
         user: payload.user,
       };

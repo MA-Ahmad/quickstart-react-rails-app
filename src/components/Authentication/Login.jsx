@@ -7,20 +7,21 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Checkbox,
   Stack,
   Link as ChakraLink,
   Button,
   Heading,
-  Text,
   useColorModeValue,
   HStack,
+  useToast,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { setAuthHeaders } from '../../apis/axios';
-
 import authenticationApi from '../../apis/authentication';
 import { useAuthDispatch } from '../../contexts/auth';
 import { useUserDispatch } from '../../contexts/user';
+import { Formik, Field } from 'formik';
+import { validateEmail, validatePassword, validateName } from './validations';
 
 const InternalLink = ({ path, text }) => {
   return (
@@ -36,15 +37,18 @@ const InternalLink = ({ path, text }) => {
 };
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [initialValues, setInitialValues] = useState({
+    email: '',
+    password: '',
+  });
+  
   const [loading, setLoading] = useState(false);
-
   const authDispatch = useAuthDispatch();
   const userDispatch = useUserDispatch();
+  const toast = useToast();
 
-  const handleSubmit = async event => {
-    event.preventDefault();
+  const handleSubmitExternally = async values => {
+    const { email, password } = values;
     try {
       setLoading(true);
       const {
@@ -54,9 +58,19 @@ const Login = ({ history }) => {
       userDispatch({ type: 'SET_USER', payload: { user } });
       setAuthHeaders();
       history.push('/');
-      // Toastr.success("Logged in successfully.");
+      toast({
+        description: 'Logged in successfully.',
+        status: 'success',
+        duration: 1500,
+        isClosable: true,
+      });
     } catch (error) {
-      // logger.error(error);
+      toast({
+        description: 'Incorrect email or password',
+        status: 'error',
+        duration: 1500,
+        isClosable: true,
+      });
     } finally {
       setLoading(false);
     }
@@ -80,46 +94,90 @@ const Login = ({ history }) => {
           minWidth={['16em', '20em']}
           p={8}
         >
-          <form onSubmit={handleSubmit}>
-            <Stack spacing={4}>
-              <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
-              </FormControl>
-              <FormControl id="password">
-                <FormLabel>Password</FormLabel>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                />
-              </FormControl>
-              <Stack spacing={10}>
-                {/* <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}
-                >
-                  <Checkbox>Remember me</Checkbox>
-                  <Link color={'blue.400'}>Forgot password?</Link>
-                </Stack> */}
-                <Button
-                  bg={'blue.400'}
-                  color={'white'}
-                  _hover={{
-                    bg: 'blue.500',
-                  }}
-                  type="submit"
-                >
-                  Sign in
-                </Button>
-              </Stack>
-            </Stack>
-          </form>
+          <Formik
+            enableReinitialize
+            initialValues={initialValues}
+            onSubmit={(values, actions) => {
+              handleSubmitExternally(values);
+              //   actions.resetForm({});
+              //   actions.setSubmitting(false);
+            }}
+          >
+            {({ values, handleChange, handleSubmit, isSubmitting }) => {
+              return (
+                <form onSubmit={handleSubmit}>
+                  <Stack spacing={4}>
+                    <Box>
+                      <Field
+                        name="email"
+                        validate={validateEmail}
+                        width={'100%'}
+                      >
+                        {({ field, form }) => (
+                          <FormControl
+                            isInvalid={form.errors.email && form.touched.email}
+                          >
+                            <FormLabel htmlFor="email">Email *</FormLabel>
+                            <Input
+                              {...field}
+                              id="email"
+                              placeholder="Email"
+                              value={values.email}
+                              onChange={handleChange}
+                            />
+                            <FormErrorMessage>
+                              {form.errors.email}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+                    </Box>
+                    <Box>
+                      <Field
+                        name="password"
+                        validate={validatePassword}
+                        width={'100%'}
+                      >
+                        {({ field, form }) => (
+                          <FormControl
+                            isInvalid={
+                              form.errors.password && form.touched.password
+                            }
+                          >
+                            <FormLabel htmlFor="password">Password *</FormLabel>
+                            <Input
+                              {...field}
+                              type="password"
+                              id="password"
+                              placeholder="******"
+                              value={values.password}
+                              onChange={handleChange}
+                            />
+                            <FormErrorMessage>
+                              {form.errors.password}
+                            </FormErrorMessage>
+                          </FormControl>
+                        )}
+                      </Field>
+                    </Box>
+                    <Stack spacing={10}>
+                      <Button
+                        isLoading={loading}
+                        bg={'blue.400'}
+                        color={'white'}
+                        _hover={{
+                          bg: 'blue.500',
+                        }}
+                        type="submit"
+                      >
+                        Sign in
+                      </Button>
+                    </Stack>
+                  </Stack>
+                </form>
+              );
+            }}
+          </Formik>
         </Box>
         <Box px={8}>
           <HStack justifyContent="space-between">

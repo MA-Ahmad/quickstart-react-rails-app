@@ -1,17 +1,18 @@
 const authReducer = (state, { type, payload }) => {
   switch (type) {
-    case "LOGIN": {
-      localStorage.setItem("authToken", JSON.stringify(payload.auth_token));
-      localStorage.setItem("authEmail", JSON.stringify(payload.email));
+    case 'LOGIN': {
+      localStorage.setItem('authToken', JSON.stringify(payload.auth_token));
+      localStorage.setItem('authEmail', JSON.stringify(payload.email));
       return {
         isLoggedIn: true,
         authToken: payload.auth_token,
         authEmail: payload.email,
       };
     }
-    case "LOGOUT": {
-      localStorage.setItem("authToken", JSON.stringify(null));
-      localStorage.setItem("authEmail", JSON.stringify(null));
+    case 'LOGOUT': {
+      localStorage.setItem('authToken', JSON.stringify(null));
+      localStorage.setItem('authEmail', JSON.stringify(null));
+      localStorage.setItem('currentUser', JSON.stringify(null));
       return { isLoggedIn: false, authToken: null, authEmail: null };
     }
     default: {

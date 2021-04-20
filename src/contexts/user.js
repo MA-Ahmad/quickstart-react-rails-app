@@ -5,7 +5,9 @@ import userReducer from '../reducers/user';
 
 const UserStateContext = React.createContext();
 const UserDispatchContext = React.createContext();
-const initialState = { user: null };
+
+const user = JSON.parse(localStorage.getItem('currentUser'));
+const initialState = { user: user ? user : null };
 
 const UserProvider = ({ children }) => {
   const [state, dispatch] = React.useReducer(userReducer, initialState);

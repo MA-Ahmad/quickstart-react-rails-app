@@ -17,9 +17,11 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { useAuthDispatch } from "../../contexts/auth";
-import authenticationApi from "../../apis/authentication";
-import { resetAuthTokens } from "../../apis/axios";
+import { useAuthDispatch } from '../../contexts/auth';
+import authenticationApi from '../../apis/authentication';
+import { resetAuthTokens } from '../../apis/axios';
+import { useUserState } from '../../contexts/user';
+import { withRouter } from 'react-router-dom';
 
 const Links = ['Dashboard', 'Projects', 'Team'];
 
@@ -32,23 +34,25 @@ const NavLink = ({ children }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}>
+    href={'#'}
+  >
     {children}
   </Link>
 );
 
-export default function Navbar() {
+const NavBar = () => {
+  const { user } = useUserState();
+  const contact = user ? `${user.first_name} ${user.last_name}` : 'user';
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const authDispatch = useAuthDispatch();
   const handleLogout = async () => {
     try {
       await authenticationApi.logout();
-      authDispatch({ type: "LOGOUT" });
+      authDispatch({ type: 'LOGOUT' });
       resetAuthTokens();
-      window.location.href = "/";
+      window.location.href = '/';
     } catch (error) {
-    //   Toastr.error(error);
+      //   Toastr.error(error);
     }
   };
 
@@ -68,8 +72,9 @@ export default function Navbar() {
             <HStack
               as={'nav'}
               spacing={4}
-              display={{ base: 'none', md: 'flex' }}>
-              {Links.map((link) => (
+              display={{ base: 'none', md: 'flex' }}
+            >
+              {Links.map(link => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
             </HStack>
@@ -78,19 +83,16 @@ export default function Navbar() {
             <Menu>
               <MenuButton
                 as={Button}
+                size={'sm'}
                 rounded={'full'}
                 variant={'link'}
-                cursor={'pointer'}>
-                <Avatar
-                  size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
-                />
+                cursor={'pointer'}
+                _hover={{textDecoration: 'none'}}
+              >
+                <Avatar size={'sm'} name={contact} />
               </MenuButton>
-              <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuDivider />
+              <MenuList fontSize={17}>
+                <MenuItem>My profile</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </MenuList>
             </Menu>
@@ -100,7 +102,7 @@ export default function Navbar() {
         {isOpen ? (
           <Box pb={4}>
             <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
+              {Links.map(link => (
                 <NavLink key={link}>{link}</NavLink>
               ))}
             </Stack>
@@ -109,4 +111,6 @@ export default function Navbar() {
       </Box>
     </>
   );
-}
+};
+
+export default withRouter(NavBar);
