@@ -3,6 +3,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { Box } from '@chakra-ui/react'
 import Navbar from "../Common/Navbar";
 import MainSection from "./MainSection";
+import Profile from "./Account/Profile";
 
 const Home = () => {
   return (
@@ -12,7 +13,7 @@ const Home = () => {
         <Switch>
           <Route exact path="/home" component={MainSection} />
           {/* <Route exact path="/my/password/edit" component={PasswordEdit} /> */}
-          {/* <Route exact path="/my/profile" component={Profile} /> */}
+          <Route exact path="/profile" component={Profile} />
           <Redirect from="/" to="/home" />
         </Switch>
       </Box>

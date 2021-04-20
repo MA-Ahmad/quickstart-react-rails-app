@@ -4,7 +4,7 @@ import {
   Flex,
   Avatar,
   HStack,
-  Link,
+  Link as ChakraLink,
   IconButton,
   Button,
   Menu,
@@ -21,11 +21,13 @@ import { useAuthDispatch } from '../../contexts/auth';
 import authenticationApi from '../../apis/authentication';
 import { resetAuthTokens } from '../../apis/axios';
 import { useUserState } from '../../contexts/user';
+import { Link } from 'react-router-dom';
 
-const Links = ['Dashboard', 'Projects', 'Team'];
+const Links = ['Dashboard', 'Profile'];
 
-const NavLink = ({ children }) => (
-  <Link
+const NavLink = props => (
+  <ChakraLink
+    as={Link}
     px={2}
     py={1}
     rounded={'md'}
@@ -33,10 +35,10 @@ const NavLink = ({ children }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}
+    to={`/${props.link}`}
   >
-    {children}
-  </Link>
+    {props.link}
+  </ChakraLink>
 );
 
 const Navbar = () => {
@@ -74,7 +76,7 @@ const Navbar = () => {
               display={{ base: 'none', md: 'flex' }}
             >
               {Links.map(link => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} link={link} />
               ))}
             </HStack>
           </HStack>
@@ -86,12 +88,14 @@ const Navbar = () => {
                 rounded={'full'}
                 variant={'link'}
                 cursor={'pointer'}
-                _hover={{textDecoration: 'none'}}
+                _hover={{ textDecoration: 'none' }}
               >
                 <Avatar size={'sm'} name={contact} />
               </MenuButton>
               <MenuList fontSize={17}>
-                <MenuItem>My profile</MenuItem>
+                <MenuItem as={Link} to="/profile">
+                  My profile
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </MenuList>
             </Menu>
@@ -102,7 +106,7 @@ const Navbar = () => {
           <Box pb={4}>
             <Stack as={'nav'} spacing={4}>
               {Links.map(link => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} link={link} />
               ))}
             </Stack>
           </Box>
