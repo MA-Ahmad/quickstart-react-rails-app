@@ -96,6 +96,9 @@ const Navbar = () => {
                 <MenuItem as={Link} to="/profile">
                   My profile
                 </MenuItem>
+                <MenuItem as={Link} to="/account/edit">
+                  Change password
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </MenuList>
             </Menu>
