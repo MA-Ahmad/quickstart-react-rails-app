@@ -6,6 +6,8 @@ import {
   Stack,
   Text,
   useBreakpointValue,
+  UnorderedList,
+  ListItem
 } from '@chakra-ui/react';
 
 export default function MainSection() {
@@ -28,30 +30,23 @@ export default function MainSection() {
                 zIndex: -1,
               }}
             >
-              Freelance
+              QuickStart
             </Text>
             <br />{' '}
             <Text color={'blue.400'} as={'span'}>
-              Design Projects
+              React + Rails
             </Text>{' '}
           </Heading>
-          <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-            The project board is an exclusive resource for contract work. It's
-            perfect for freelancers, agencies, and moonlighters.
-          </Text>
-          <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-            <Button
-              rounded={'full'}
-              bg={'blue.400'}
-              color={'white'}
-              _hover={{
-                bg: 'blue.500',
-              }}
-            >
-              Create Project
-            </Button>
-            <Button rounded={'full'}>How It Works</Button>
-          </Stack>
+          <Flex justifyContent="center" textAlign="left">
+            <UnorderedList>
+              <ListItem>Uses React on Front-end.</ListItem>
+              <ListItem>Uses Context API for state management.</ListItem>
+              <ListItem>Uses Rails on Back-end.</ListItem>
+              <ListItem>Uses ChakraUI for UI.</ListItem>
+              <ListItem>Uses Devise for User authentication(token based).</ListItem>
+              <ListItem>Uses PostgreSQL database.</ListItem>
+            </UnorderedList>
+          </Flex>
         </Stack>
       </Flex>
       <Flex flex={1}>
