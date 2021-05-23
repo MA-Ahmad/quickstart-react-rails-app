@@ -1,6 +1,8 @@
 <h3 align="center">Quickstart React+Rails</h3>
 <p align="center">This is a base project to quickly spin up a React+Rails application.</p>
 
+![Home Page](/src/assets/images/home_page.png)
+
 ## Heroku Link
 [Quickstart](https://auth-app-front.herokuapp.com/)
 
