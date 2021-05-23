@@ -12,8 +12,10 @@ import {
   createIcon,
   IconProps,
   useColorModeValue,
+  UnorderedList,
+  ListItem
 } from '@chakra-ui/react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function CallToActionWithVideo() {
   return (
@@ -41,18 +43,23 @@ export default function CallToActionWithVideo() {
                 bg: 'red.400',
                 zIndex: -1,
               }}>
-              Write once,
+              Quick Start
             </Text>
             <br />
             <Text as={'span'} color={'red.400'}>
-              use everywhere!
+              React + Rails
             </Text>
           </Heading>
-          <Text color={'gray.500'}>
-            Snippy is a rich coding snippets app that lets you create your own
-            code snippets, categorize them, and even sync them in the cloud so
-            you can use them anywhere. All that is free!
-          </Text>
+          <Flex justifyContent="center" textAlign="left">
+            <UnorderedList>
+              <ListItem>Uses React on Front-end.</ListItem>
+              <ListItem>Uses Context API for state management.</ListItem>
+              <ListItem>Uses Rails on Back-end.</ListItem>
+              <ListItem>Uses ChakraUI for UI.</ListItem>
+              <ListItem>Uses Devise for User authentication(token based).</ListItem>
+              <ListItem>Uses PostgreSQL database.</ListItem>
+            </UnorderedList>
+          </Flex>
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: 'column', sm: 'row' }}>
@@ -73,8 +80,9 @@ export default function CallToActionWithVideo() {
               size={'lg'}
               fontWeight={'normal'}
               px={6}
-              leftIcon={<PlayIcon h={4} w={4} color={'gray.300'} />}>
-              How It Works
+              as={Link}
+              to="/signup">
+              Sign up
             </Button>
           </Stack>
         </Stack>
