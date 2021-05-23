@@ -23,7 +23,7 @@ import { resetAuthTokens } from '../../apis/axios';
 import { useUserState } from '../../contexts/user';
 import { Link } from 'react-router-dom';
 
-const Links = ['Dashboard', 'Profile'];
+const Links = ['QuickStart', 'Profile'];
 
 const NavLink = props => (
   <ChakraLink
@@ -69,7 +69,6 @@ const Navbar = () => {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box>Logo</Box>
             <HStack
               as={'nav'}
               spacing={4}
