@@ -19,6 +19,10 @@
 ## Rails backend
 - [auth-app-backend](https://github.com/MA-Ahmad/auth-app-backend)
 
+## Show your support
+
+Give a ⭐️ if you like this project!
+
 ## License
 
 Licensed under the MIT License. Feel free to use parts of the code in your own projects with attribution!
