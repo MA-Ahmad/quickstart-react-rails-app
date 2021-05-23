@@ -16,6 +16,9 @@
 - [Devise gem](https://github.com/heartcombo/devise)
 - [Formik](https://formik.org/)
 
+## Rails backend
+- [auth-app-backend](https://github.com/MA-Ahmad/auth-app-backend)
+
 ## License
 
 Licensed under the MIT License. Feel free to use parts of the code in your own projects with attribution!
